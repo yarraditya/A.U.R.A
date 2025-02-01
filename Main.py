@@ -19,3 +19,29 @@ func = [
 ]
 
 #Initialize an empty list to store user messages
+message = []
+
+#Define the preamble that guides the AI model on how to categorize queries.
+preamble = """"""
+
+# Define a chat history with predefined user-chatbot interactions for context.
+ChatHistory = [
+    {"role": "User", "message": "how are you?"},
+    {"role": "Chatbot", "message": "gneral hwo are you?"},
+    {"role": "User", "message": "do you like pizza?"},
+    {"role": "Chatbot", "message": "general do you like pizza?"},
+    {"role": "User", "message": "open chrome and tell me about mahatma gandhi."},
+    {"role": "Chatbot", "message": "open chrome, general tell me about mahatma gandhi."},
+    {"role": "User", "message": "open chrome and firefox"},
+    {"role": "Chatbot", "message": "open chrome, open firefox"},
+    {"role": "User", "message": "what is today's date and by the way remind me that i have a dancing performance on th aug at 11pm."},
+    {"role": "Chatbot", "message": "general what is today's date , reminder 11:00pm 5th aug dancing performance"},
+    {"role": "User", "message": "chat with me."},
+    {"role": "Chatbot", "message": "general chat with me"},
+]
+
+#Define th emain function for decision making on queries.
+def FirstLayerDMM(prompt: str = "test"):
+    #add the user query to the messages list.
+    
+    

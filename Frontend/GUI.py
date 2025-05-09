@@ -240,16 +240,19 @@ class InitialScreen(QWidget):
             self.label.setText(messages)
      
     def load_icon(self, path, width = 60 , height = 60):
+        print(f"Attempting to load icon from: {path}")
         pixmap = QPixmap(path)
-        new_pixmap = pixmap.scaled(width, height)
+        if pixmap.isNull():
+           print(f"Error: Could not load pixmap from {path}")
+        new_pixmap = pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.icon_label.setPixmap(new_pixmap)
         
     def toggle_icon(self, event = None):
         if self.toggled:
-            self.load_icon(GraphicsDirectoryPath('voice.png'),60,60)
+            self.load_icon(GraphicsDirectoryPath('Mic_on.png'),60,60)
             MicButtonInitialed()
         else:
-            self.load_icon(GraphicsDirectoryPath('mic.png'),60,60)
+            self.load_icon(GraphicsDirectoryPath('Mic_off.png'),60,60)
             MicButtonClosed()
         
         self.toggled = not self.toggled
@@ -272,71 +275,120 @@ class MessageScreen(QWidget):
     
 class CustomTopBar(QWidget):
     def __init__(self, parent , stacked_widget):
-        super().__init__(parent)
-        self.initUI() 
-        self.current_screen = None
-        self.stacked_widget = stacked_widget   
-    
+     super().__init__(parent)
+     self.draggable = True  # Initialize draggable attribute
+     self.offset = None     # Initialize offset attribute
+     self.current_screen = None
+     self.stacked_widget = stacked_widget   
+     self.initUI()
+
     def initUI(self):
-        self.setFixedHeight(50)
-        layout = QHBoxLayout()
-        layout.setAlignment(Qt.AlignRight)
-        home_button = QPushButton()
-        home_icon = QIcon(os.path.join(GraphicsDirPath,'Home.png'))
-        home_button.setIcon(home_icon)
-        home_button.setText(" Home")
-        home_button.setStyleSheet("height:40px; line-height:40px; background-color:white; color:black;")
-        message_button = QPushButton()
-        message_icon = QIcon(os.path.join(GraphicsDirPath,'Chats.png'))
-        message_button.setIcon(message_icon)
-        message_button.setText(" Chats")
-        message_button.setStyleSheet("height:40px; line-height:40px; background-color:white; color:black;")
-        minimize_button = QPushButton()
-        minimize_icon = QIcon(os.path.join(GraphicsDirPath,'Minimize2.png'))
-        minimize_button.setIcon(minimize_icon)
-        minimize_button.setStyleSheet("background-color:white;")  
-        minimize_button.clicked.connect(self.minimizeWindow)
-        self.maximize_button = QPushButton()
-        self.maximize_icon = QIcon(os.path.join(GraphicsDirPath,'Maximize.png'))
-        self.restore_icon = QIcon(GraphicsDirectoryPath('Minimize.png'))
-        self.maximize_button.setIcon(self.maximize_icon)
-        self.maximize_button.setFlat(True)
-        self.maximize_button.setStyleSheet("background-color:white;")
-        self.maximize_button.clicked.connect(self.maximizeWindow)
-        close_button = QPushButton()
-        close_icon = QIcon(os.path.join(GraphicsDirPath, 'Close.png'))
-        close_button.setIcon(close_icon)
-        close_button.setStyleSheet("background-color:white;")
-        close_button.clicked.connect(self.closeWindow)
-        line_frame = QFrame()
-        line_frame.setFixedHeight(1)
-        line_frame.setFrameShape(QFrame.HLine) 
-        line_frame.setFrameShadow(QFrame.Sunken)
-        line_frame.setStyleSheet("border-color: black ;")
-        title_label = QLabel(f"{str(Assistantname).capitalize()} AI")
-        title_label.setStyleSheet("color:black; font-size:18px;; background-color:white;")
-        home_button.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(0))
-        message_button.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(1))
-        layout.addWidget(title_label)
-        layout.addStretch(1)
-        layout.addWidget(home_button)
-        layout.addWidget(message_button)
-        layout.addStretch(1)
-        layout.addWidget(minimize_button)
-        layout.addWidget(self.maximize_button)
-        layout.addWidget(close_button)
-        layout.addWidget(line_frame)
-        self.draggable = True
-        self.offset = None
-        
+     self.setFixedHeight(50)
+     layout = QHBoxLayout()
+     layout.setAlignment(Qt.AlignRight)
+     
+     # Set white background for the top bar
+     self.setStyleSheet("background-color: white;")
+     
+     # Title label
+     title_label = QLabel(f"{str(Assistantname).capitalize()} AI")
+     title_label.setStyleSheet("color:black; font-size:18px; background-color:white;")
+     layout.addWidget(title_label)
+    
+     layout.addStretch(1)
+    
+    # Home button with fixed icon loading
+     home_button = QPushButton()
+     home_icon = QIcon(GraphicsDirectoryPath('Home.png'))
+     home_button.setIcon(home_icon)
+     home_button.setIconSize(QSize(24, 24))  # Set icon size
+     home_button.setText(" Home")
+     home_button.setStyleSheet("""
+         height:40px; 
+         line-height:40px; 
+         background-color:white; 
+         color:black;
+         padding: 5px;
+     """)
+    
+    # Message button with fixed icon loading
+     message_button = QPushButton()
+     message_icon = QIcon(GraphicsDirectoryPath('Chats.png'))
+     message_button.setIcon(message_icon)
+     message_button.setIconSize(QSize(24, 24))  # Set icon size
+     message_button.setText(" Chats")
+     message_button.setStyleSheet("""
+        height:40px; 
+        line-height:40px; 
+        background-color:white; 
+        color:black;
+        padding: 5px;
+     """)
+    
+    # Window control buttons with fixed icon loading
+     minimize_button = QPushButton()
+     minimize_icon = QIcon(GraphicsDirectoryPath('Minimize2.png'))
+     minimize_button.setIcon(minimize_icon)
+     minimize_button.setIconSize(QSize(24, 24))  # Set icon size
+     minimize_button.setStyleSheet("""
+        background-color:white;
+        padding: 5px;
+    """)  
+     minimize_button.clicked.connect(self.minimizeWindow)
+    
+     self.maximize_button = QPushButton()
+     self.maximize_icon = QIcon(GraphicsDirectoryPath('Maximize.png'))
+     self.restore_icon = QIcon(GraphicsDirectoryPath('Minimize.png'))
+     self.maximize_button.setIcon(self.maximize_icon)
+     self.maximize_button.setIconSize(QSize(24, 24))  # Set icon size
+     self.maximize_button.setFlat(True)
+     self.maximize_button.setStyleSheet("""
+        background-color:white;
+        padding: 5px;
+    """)
+     self.maximize_button.clicked.connect(self.maximizeWindow)
+    
+     close_button = QPushButton()
+     close_icon = QIcon(GraphicsDirectoryPath('Close.png'))
+     close_button.setIcon(close_icon)
+     close_button.setIconSize(QSize(24, 24))  # Set icon size
+     close_button.setStyleSheet("""
+        background-color:white;
+        padding: 5px;
+    """)
+     close_button.clicked.connect(self.closeWindow)
+    
+     line_frame = QFrame()
+     line_frame.setFixedHeight(1)
+     line_frame.setFrameShape(QFrame.HLine) 
+     line_frame.setFrameShadow(QFrame.Sunken)
+     line_frame.setStyleSheet("border-color: black;")
+    
+    # Connect signals
+     home_button.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(0))
+     message_button.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(1))
+    
+    # Add widgets to layout
+     layout.addWidget(title_label)
+     layout.addStretch(1)
+     layout.addWidget(home_button)
+     layout.addWidget(message_button)
+     layout.addStretch(1)
+     layout.addWidget(minimize_button)
+     layout.addWidget(self.maximize_button)
+     layout.addWidget(close_button)
+     layout.addWidget(line_frame)
+    
+     self.setLayout(layout)
+
     def paintEvent(self,event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), Qt.white)
         super().paintEvent(event)
-        
+
     def minimizeWindow(self):
         self.parent().showMinimized()
-        
+
     def maximizeWindow(self):
         if self.parent().isMaximized():
             self.parent().showNormal()
@@ -344,33 +396,33 @@ class CustomTopBar(QWidget):
         else:
             self.parent().showMaximized()
             self.maximize_button.setIcon(self.restore_icon)
-            
+
     def closeWindow(self):
         self.parent().close()
-    
+
     def mousePressEvent(self, event):
         if self.draggable:
             self.offset = event.pos()
-            
+
     def mouseMoveEvent(self, event):
         if self.draggable and self.offset:
             new_pos = event.globalPos() - self.offset
             self.parent().move(new_pos)
-    
+
     def showMessageScreen(self):
         if self.current_screen is not None:
             self.current_screen.hide()
-            
-            message_screen = MessageScreen(self) 
-            layout = self.parent().layout()
-            if layout is not None:
-                layout.addWidget(message_screen)
-            self.current_screen = message_screen
-    
+
+        message_screen = MessageScreen(self)
+        layout = self.parent().layout()
+        if layout is not None:
+            layout.addWidget(message_screen)
+        self.current_screen = message_screen
+
     def showInitialScreen(self):
         if self.current_screen is not None:
             self.current_screen.hide()
-           
+
         initial_screen = InitialScreen(self)
         layout = self.parent().layout()
         if layout is not None:

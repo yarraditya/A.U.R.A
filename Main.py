@@ -181,7 +181,7 @@ def FirstThread():
                 SetAssistantStatus("Available...")
 
 def SecondThread():
-    GraphicalUserInterface
+    GraphicalUserInterface()
     
  
 if __name__ == "__main__":

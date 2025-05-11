@@ -2,7 +2,7 @@ import asyncio
 from random import randint
 from PIL import Image
 import requests
-from dotenv import get_key
+from dotenv import load_dotenv
 import os
 from time import sleep
 
@@ -30,7 +30,8 @@ def open_images(prompt):
 
 #API details for the hugging face stable diffusion model 
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-headers = {"Authorization": f"Bearer {get_key('.env', 'HuggingFaceAPIKey')}"}
+headers = {"Authorization": f"Bearer {os.getenv('HuggingFaceAPIKey')}"}
+
 
 
 
@@ -54,10 +55,10 @@ async def generate_images(prompt: str):
         tasks.append(task)
         
         # wait for all task to complete 
-    image_bytes_list = await asyncio.gather(*tasks)
+        image_bytes_list = await asyncio.gather(*tasks)
         
         # save the generated images to files
-    for i , image_bytes in enumerate(image_bytes_list):
+        for i , image_bytes in enumerate(image_bytes_list):
             with open(fr"Data\{prompt.replace(' ', '_')}{i}.jpg", "wb") as f:
                 f.write(image_bytes)
 # Wrapper function to generate and open images
@@ -77,13 +78,12 @@ while True:
          # if the stauts indicate an images generation request
          if Status == "True":
           print("Generating Images...")
-          GenerateImages(prompt=Prompt)
-
+          ImageStatus = GenerateImages(prompt = Prompt)
           
           with open(r"Frontend\Files\ImageGeneration.data", "w") as f:
               f.write("False, False")
               break
          else: 
              sleep(1)
-     except Exception as e:
-      print(f"Error occurred: {e}")
+     except :
+         pass

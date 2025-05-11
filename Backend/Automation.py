@@ -60,7 +60,7 @@ def Content (Topic):
         messages.append({"role": "user", "content":f"{prompt}"}) 
         
         completion = client.chat.completions.create (
-            model = "mixtral-8x7b-32768",
+            model = "llama-3.1-8b-instant",
             messages = SystemChatBot + messages,
             max_tokens = 2048,
             temperature=0.7,

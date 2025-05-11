@@ -6,5 +6,109 @@
     {
         "role": "assistant",
         "content": "I am AURA, a highly advanced and accurate AI chatbot."
+    },
+    {
+        "role": "user",
+        "content": "what is IMF"
+    },
+    {
+        "role": "assistant",
+        "content": "The IMF stands for International Monetary Fund."
+    },
+    {
+        "role": "user",
+        "content": "and what it is used for"
+    },
+    {
+        "role": "assistant",
+        "content": "The International Monetary Fund (IMF) is used to promote global monetary cooperation, exchange rate stability, and economic growth, as well as to provide temporary financial assistance to countries facing economic difficulties."
+    },
+    {
+        "role": "user",
+        "content": "what are you doing"
+    },
+    {
+        "role": "assistant",
+        "content": "I am currently engaged in a conversation with you, responding to your questions and providing information on various topics."
+    },
+    {
+        "role": "user",
+        "content": "python -u \"e:\\A.U.R.A\\Backend\\SpeechToText.py\""
+    },
+    {
+        "role": "assistant",
+        "content": "It seems like you are trying to run a Python script named \"SpeechToText.py\" located in the \"E:\\A.U.R.A\\Backend\\\" directory."
+    },
+    {
+        "role": "user",
+        "content": "python -u \"e:\\A.U.R.A\\Backend\\SpeechToText.py\""
+    },
+    {
+        "role": "assistant",
+        "content": "You're running a Python script for speech-to-text functionality, possibly related to my own language processing capabilities."
+    },
+    {
+        "role": "user",
+        "content": "Hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "What you doing?"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm chatting with you!"
+    },
+    {
+        "role": "user",
+        "content": "What's the capital of india?"
+    },
+    {
+        "role": "assistant",
+        "content": "The capital of India is New Delhi."
+    },
+    {
+        "role": "user",
+        "content": "Are chal gaya chal gaya chal gaya sab chal gaya."
+    },
+    {
+        "role": "assistant",
+        "content": "It seems like you're saying \"Are chal gaya, chal gaya, chal gaya, sab chal gaya\" which is a popular Hindi phrase that roughly translates to \"Everything is gone, everything has gone, everything has gone, everything is gone\"."
+    },
+    {
+        "role": "user",
+        "content": "Are dekh abhi answer bhi kar raha hai."
+    },
+    {
+        "role": "assistant",
+        "content": "You're saying \"Are dekh abhi answer bhi kar raha hai\" which means \"Look, I'm still answering\"."
+    },
+    {
+        "role": "user",
+        "content": "Hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "What's the capital of india?"
+    },
+    {
+        "role": "assistant",
+        "content": "The capital of India is New Delhi."
+    },
+    {
+        "role": "user",
+        "content": "Query."
+    },
+    {
+        "role": "assistant",
+        "content": "You've asked a question! Please go ahead and ask your question, and I'll do my best to answer it."
     }
 ]

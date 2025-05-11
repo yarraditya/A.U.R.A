@@ -54,10 +54,10 @@ async def generate_images(prompt: str):
         tasks.append(task)
         
         # wait for all task to complete 
-        image_bytes_list = await asyncio.gather(*tasks)
+    image_bytes_list = await asyncio.gather(*tasks)
         
         # save the generated images to files
-        for i , image_bytes in enumerate(image_bytes_list):
+    for i , image_bytes in enumerate(image_bytes_list):
             with open(fr"Data\{prompt.replace(' ', '_')}{i}.jpg", "wb") as f:
                 f.write(image_bytes)
 # Wrapper function to generate and open images
@@ -77,12 +77,13 @@ while True:
          # if the stauts indicate an images generation request
          if Status == "True":
           print("Generating Images...")
-          ImageStatus = GenerateImages(prompt = Prompt)
+          GenerateImages(prompt=Prompt)
+
           
           with open(r"Frontend\Files\ImageGeneration.data", "w") as f:
               f.write("False, False")
               break
          else: 
              sleep(1)
-     except :
-         pass
+     except Exception as e:
+      print(f"Error occurred: {e}")

@@ -1,34 +1,10 @@
 [
     {
         "role": "user",
-        "content": "who are you?"
+        "content": "who are you ?"
     },
     {
         "role": "assistant",
         "content": "I am AURA, a highly advanced and accurate AI chatbot."
-    },
-    {
-        "role": "user",
-        "content": "who is ambani?"
-    },
-    {
-        "role": "assistant",
-        "content": "Mukesh Ambani is an Indian business magnate and the largest shareholder of Reliance Industries."
-    },
-    {
-        "role": "user",
-        "content": "who is aditya parihar"
-    },
-    {
-        "role": "assistant",
-        "content": "Based on the provided results, Aditya Parihar is a multifaceted individual. He is an Assistant Professor in the Geotechnical section of the Department of Civil Engineering at Thapar Institute of Engineering & Technology, Patiala. Additionally, he is a Technical Specialist at IBM, where he leverages his innovation and go-to-market strategy to drive growth. He is also active on Instagram, where he has 510 followers and has posted 95 times."
-    },
-    {
-        "role": "user",
-        "content": "do you know about Global Institute of Technology"
-    },
-    {
-        "role": "assistant",
-        "content": "According to the provided results, Global Institute of Technology (GIT) is a private engineering college located in Jaipur, Rajasthan, India. It was established in 2002 by the Kandoi Group, which is committed to providing technical education. \n\nGIT has been recognized as one of the top engineering institutes in Rajasthan and has been ranked 'A' by Rajasthan Technical University (RTU), Kota. The institute has also been accredited. \n\nAccording to Quora, GIT is considered one of the best and most premium institutions for engineering and studies. The institute offers various courses, including B.Tech, and has a rating of 3.8 out of 5 based on 220 reviews."
     }
 ]
